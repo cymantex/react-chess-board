@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
-npm run build
-cd dist
-npm publish
+if output=$(node ./scripts/updateVersion.js); then
+    if output=$(./scripts/build.sh); then
+        cd dist
+        npm publish
+    fi
+fi
