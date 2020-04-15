@@ -7,8 +7,6 @@ import {BoardTheme, MoveHandler, PieceTheme} from "./types";
 import BoardRenderer from "./utils/BoardRenderer";
 import {DroppableSquare} from "./dnd/DroppableSquare";
 import {DraggablePiece} from "./dnd/DraggablePiece";
-import TouchBackend from "react-dnd-touch-backend";
-import {DndProvider, DndProviderProps} from "react-dnd";
 import useResizeAware from "react-resize-aware";
 import {BoardRenderingProps} from "./utils/renderers";
 
@@ -17,8 +15,7 @@ export interface ChessBoardProps extends ComponentProps<any>, Partial<BoardRende
     onMove?: MoveHandler,
     draggable?: boolean,
     pieceTheme?: PieceTheme,
-    boardTheme?: BoardTheme,
-    dndProviderProps?: DndProviderProps<any, any>
+    boardTheme?: BoardTheme
 }
 
 export const ChessBoard: React.FC<ChessBoardProps> = ({
@@ -28,7 +25,6 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
     draggable = false,
     pieceTheme = {},
     boardTheme = {},
-    dndProviderProps,
     ...props
 }) => {
     const [resizeListener, size] = useResizeAware();
@@ -54,13 +50,8 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
         renderBoard
     };
 
-    const dndProps = dndProviderProps ? dndProviderProps : {
-        backend: TouchBackend,
-        options: {enableMouseEvents: true,},
-    };
-
     return (
-        <DndProvider {...dndProps}>
+        <>
             <ChessBoardStyles/>
             <BoardRenderer
                 {...boardProps}
@@ -83,7 +74,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
                     ) : renderPiece(pieceViewProps)
                 }
             />
-        </DndProvider>
+        </>
     );
 };
 

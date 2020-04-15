@@ -6,6 +6,7 @@ import {defaultRenderSquare} from "./module/utils/renderers";
 import {PromotionView} from "./module/views/PromotionView";
 import {positionContentToFenPiece} from "chess-fen/utils";
 import {BoardView} from "./module/views/BoardView";
+import {ChessBoardDndProvider} from "./module/dnd/ChessBoardDndProvider";
 
 const Chess = require("chess.js");
 
@@ -81,7 +82,9 @@ export const ControlledChessBoard = () => {
 
 render(
     <div style={{maxWidth: "1000px", margin: "0 auto"}}>
-        <ControlledChessBoard/>
+        <ChessBoardDndProvider>
+            <ControlledChessBoard/>
+        </ChessBoardDndProvider>
     </div>,
     document.getElementById("root")
 );
