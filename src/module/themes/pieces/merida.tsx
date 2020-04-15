@@ -1,5 +1,5 @@
-import {PieceTheme} from "../utils/types";
 import React from "react";
+import {PieceTheme} from "../../types";
 
 const svgProps = {
     xmlns: "http://www.w3.org/2000/svg",

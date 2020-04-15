@@ -1,5 +1,5 @@
 import React from "react";
-import {PieceTheme} from "../utils/types";
+import {PieceTheme} from "../../types";
 
 export const cburnett: PieceTheme = {
     "black pawn": () => (

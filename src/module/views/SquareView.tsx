@@ -1,46 +1,43 @@
 import React from "react";
 import classNames from "classnames";
-import {SquareRenderingProps} from "../utils/types";
+import {ConnectDropTarget} from "react-dnd";
+import {SquareRenderingProps} from "../utils/renderers";
 
 export interface SquareViewProps extends SquareRenderingProps {
     lightSquare: boolean,
-    highlighted?: boolean
+    highlighted?: boolean,
+    dropTarget?: ConnectDropTarget
 }
 
 export const SquareView: React.FC<SquareViewProps> = ({
     board,
-    piece,
-    coordinate,
     lightSquare,
     position,
-    boardSize,
-    squareSize,
-    highlighted,
     children,
-    rotated,
-    pieceTheme,
-    boardTheme,
+    dropTarget,
     style = {},
+    className,
     ...props
 }) => {
-    let background = lightSquare ? boardTheme.lightSquare : boardTheme.darkSquare;
-    background = highlighted ? boardTheme.highlightedSquare : background;
+    const piece = board.get(position);
 
     return (
         <div
-            id={coordinate}
+            id={position.toCoordinate()}
+            ref={dropTarget ? dropTarget : null}
             style={{
-                background,
+                background: lightSquare ? board.boardTheme.lightSquare : board.boardTheme.darkSquare,
                 ...style
             }}
             className={classNames({
                 "chess-board-square": true,
                 "chess-board-square--light": lightSquare,
                 "chess-board-square--dark": !lightSquare,
-                "chess-board-square--highlighted": highlighted,
                 [piece]: piece
-            })}
+            }, className)}
             {...props}
         >{children}</div>
     );
 };
+
+export default SquareView;

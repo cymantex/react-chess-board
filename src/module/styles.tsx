@@ -3,30 +3,30 @@ import {createGlobalStyle} from "styled-components";
 export const ChessBoardStyles = createGlobalStyle`
 .chess-board {
     display: grid;
+    flex-wrap: wrap;
     position: relative;
     user-select: none;
     font-family: "Courier New", serif;
 }
 
-.chess-board .react-draggable {
-    max-width: 100%;
-    max-height: 100%;
-    position: relative;
-    z-index: 0;
-}
-
-.chess-board .react-draggable-dragging {
-    z-index: 9999;
+.chess-board-piece--draggable {
+    cursor: grab;
 }
 
 .chess-board-square {
     position: relative;
 }
 
+.chess-board-square--clickable {
+    cursor: pointer;
+}
+
 .chess-board-coordinate {
     position: absolute;
-    font-size: 1rem;
+    font-size: 12px;
     font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 2px #000;
 }
 
 .chess-board-coordinate--row {
@@ -59,3 +59,5 @@ export const ChessBoardStyles = createGlobalStyle`
     padding: 15px 0;
 }
 `;
+
+export default ChessBoardStyles;

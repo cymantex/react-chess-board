@@ -1,28 +1,84 @@
 import Fen, {FenArgs} from "chess-fen/Fen";
-import {Coordinates} from "./types";
 import {Position} from "chess-fen";
-import {PositionContent, PositionOrCoordinate} from "chess-fen/types";
+import {BoardContent, Piece, PositionOrCoordinate} from "chess-fen/types";
+import {BoardTheme, Coordinates, PieceTheme} from "../types";
+import {cardinal} from "../themes/pieces/cardinal";
+import {blue} from "../themes/boards/blue";
+
+export interface BoardConstructor {
+    fen: string|FenArgs,
+    size: number,
+    pieceTheme?: PieceTheme,
+    boardTheme?: BoardTheme,
+    rotated?: boolean
+}
 
 export class Board extends Fen {
     readonly coordinates: Coordinates;
     readonly rotated: boolean;
+    readonly size: number;
+    readonly squareSize: number;
+    readonly pieceTheme: PieceTheme;
+    readonly boardTheme: BoardTheme;
 
-    constructor(fen: string|FenArgs, rotated = false){
+    constructor({fen, size, pieceTheme = {}, boardTheme = {}, rotated = false}: BoardConstructor){
         super(fen);
 
+        this.size = size;
+        this.squareSize = size / this.columns;
         this.rotated = rotated;
         this.coordinates = this.createCoordinates();
+        this.pieceTheme = {...cardinal, ...pieceTheme};
+        this.boardTheme = {...blue, ...boardTheme};
     }
 
-    public get(positionOrCoordinate: PositionOrCoordinate): PositionContent {
-        const positionContent = super.get(positionOrCoordinate);
+    public get(positionOrCoordinate: PositionOrCoordinate): BoardContent {
+        const boardContent = super.get(positionOrCoordinate);
 
-        if (positionContent === null) {
+        if (boardContent === null) {
             throw new Error(`${Board.toCoordinate(positionOrCoordinate)} is outside the board.`);
         }
 
-        return positionContent;
+        return boardContent;
     }
+
+    public isCapture(fromPosition: Position, toPosition: Position){
+        const piece = this.get(fromPosition);
+        const target = this.get(toPosition);
+
+        return (target !== null && target !== BoardContent.EmptySquare) ||
+            (piece.includes(Piece.Pawn) && toPosition.toCoordinate() === this.enPassantSquare);
+    }
+
+    public isPawnMove(fromPosition: Position, toPosition: Position): boolean {
+        const piece = this.get(fromPosition);
+        const capture = this.isCapture(fromPosition, toPosition);
+
+        const isPawnMove = (canMakeDoubleMove: boolean): boolean => {
+            const range = canMakeDoubleMove ? 2 : 1;
+            return (
+                (!capture && fromPosition.isVerticalTo(toPosition, range)) ||
+                (capture && fromPosition.isDiagonalTo(toPosition, 1))
+            );
+        };
+
+        if(this.toMove === "white" && piece === BoardContent.WhitePawn){
+            return fromPosition.isNorthTo(toPosition) && isPawnMove(fromPosition.y === this.rows - 2);
+        } else if(this.toMove === "black" && piece === BoardContent.BlackPawn){
+            return fromPosition.isSouthTo(toPosition) && isPawnMove(fromPosition.y === 1);
+        }
+
+        return false;
+    };
+
+    public isPromotion(fromPosition: Position, toPosition: Position): boolean {
+        if(this.toMove === "white"){
+            return this.isPawnMove(fromPosition, toPosition) && fromPosition.y === 1 && toPosition.y === 0;
+        }
+
+        return this.isPawnMove(fromPosition, toPosition) &&
+            (fromPosition.y === this.rows - 2) && (toPosition.y === this.rows - 1);
+    };
 
     private createCoordinates(): Coordinates {
         const coordinates: Coordinates = {x: [], y: []};
@@ -45,3 +101,5 @@ export class Board extends Fen {
         return typeof positionOrCoordinate === "string" ? positionOrCoordinate : positionOrCoordinate.toCoordinate();
     }
 }
+
+export default Board;

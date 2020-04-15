@@ -1,6 +1,6 @@
 {
   "name": "react-fen-chess-board",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": false,
   "author": "Simon Eriksson <smnrkssn@hotmail.se>",
   "license": "MIT",
@@ -12,14 +12,14 @@
     "url": "git+https://github.com/dv16sen/react-chess-board"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.1.1",
-    "@testing-library/react": "^10.0.1",
+    "@types/classnames": "^2.2.10",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.3",
-    "@types/react": "^16.9.25",
-    "@types/react-dom": "^16.9.5",
-    "@types/classnames": "^2.2.10",
+    "@types/react": "^16.9.32",
+    "@types/react-dnd": "^3.0.2",
+    "@types/react-dom": "^16.9.6",
     "@types/styled-components": "^5.0.1",
+    "chess.js": "^0.10.3",
     "cross-env": "^7.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -27,15 +27,16 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "chess-fen": "^0.2.4",
-    "chess.js": "^0.10.3",
-    "react-draggable": "^4.2.0",
+    "chess-fen": "^0.2.5",
+    "classnames": "^2.2.6",
+    "react-dnd": "^10.0.2",
+    "react-dnd-preview": "^5.0.0",
+    "react-dnd-touch-backend": "^10.0.2",
     "react-resize-aware": "^3.0.0",
     "styled-components": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "stuff": "react-scripts build",
     "build": "./scripts/build.sh",
     "release": "./scripts/release.sh",
     "test": "cross-env CI=true react-scripts test --env=jsdom",

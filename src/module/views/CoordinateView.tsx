@@ -1,22 +1,12 @@
 import React, {Fragment} from "react";
-import {SquareRenderingProps} from "../utils/types";
+import {SquareRenderingProps} from "../utils/renderers";
 
 export interface CoordinateViewProps extends SquareRenderingProps {}
 
-export const CoordinateView: React.FC<CoordinateViewProps> = ({
-    piece,
-    coordinate,
-    board,
-    position,
-    boardSize,
-    squareSize,
-    rotated,
-    pieceTheme,
-    boardTheme,
-    ...props
-}) => {
-    const rowCoordinate = position.rotate(rotated).y === board.rows - 1 ? coordinate.charAt(0) : "";
-    const columnCoordinate = position.rotate(rotated).x === 0 ? coordinate.charAt(1) : "";
+export const CoordinateView: React.FC<CoordinateViewProps> = ({board, position, ...props}) => {
+    const coordinate = position.toCoordinate();
+    const rowCoordinate = position.rotate(board.rotated).y === board.rows - 1 ? coordinate.charAt(0) : "";
+    const columnCoordinate = position.rotate(board.rotated).x === 0 ? coordinate.charAt(1) : "";
 
     return (
         <Fragment>
@@ -29,3 +19,5 @@ export const CoordinateView: React.FC<CoordinateViewProps> = ({
         </Fragment>
     );
 };
+
+export default CoordinateView;

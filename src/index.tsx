@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import {render} from "react-dom";
-import {ChessBoard} from "./module/boards/ChessBoard";
+import {ChessBoard} from "./module/ChessBoard";
 import {Position} from "chess-fen";
-import {defaultRenderSquare, isPromotion} from "./module/utils";
+import {defaultRenderSquare} from "./module/utils/renderers";
 import {PromotionView} from "./module/views/PromotionView";
-import {coloredPieceToFenPiece} from "chess-fen/utils";
+import {positionContentToFenPiece} from "chess-fen/utils";
+import {BoardView} from "./module/views/BoardView";
 
-const Chess = require('chess.js');
+const Chess = require("chess.js");
 
 const chess = new Chess();
 
@@ -16,7 +17,6 @@ export interface Promotion {
 }
 
 export const ControlledChessBoard = () => {
-    //TODO: Use a reducer instead?
     const [fen, setFen] = useState(chess.fen());
     const [promotion, setPromotion] = useState<Promotion|null>(null);
 
@@ -24,21 +24,34 @@ export const ControlledChessBoard = () => {
         <ChessBoard
             fen={fen}
             onMove={(props) => {
-                const {fromPosition, toPosition} = props;
+                const {fromPosition, toPosition, board} = props;
 
-                if (isPromotion(props)) {
+                if (board.isPromotion(fromPosition, toPosition)) {
                     setPromotion({from: fromPosition, to: toPosition});
                 } else {
                     chess.move({from: fromPosition.toCoordinate(), to: toPosition.toCoordinate()});
                     setFen(chess.fen());
                 }
             }}
-            onSquareClick={(clickedPosition, highlightedPosition) => {
-                if (highlightedPosition) {
-                    chess.move({from: highlightedPosition.toCoordinate(), to: clickedPosition.toCoordinate()});
-                    setFen(chess.fen());
-                }
-            }}
+            renderBoard={({resizeListener, children, ...props}) => (
+                <BoardView
+                    onContextMenu={event => event.preventDefault()}
+                    onMouseUp={event => {
+                        if (event.button === 2) {
+                            console.log("Up click");
+                        }
+                    }}
+                    onMouseDown={event => {
+                        if (event.button === 2) {
+                            console.log("Down click");
+                        }
+                    }}
+                    {...props}
+                >
+                    {resizeListener}
+                    {children}
+                </BoardView>
+            )}
             renderSquare={(props) => {
                 if (promotion && promotion.to.equals(props.position)) {
                     return (
@@ -49,7 +62,7 @@ export const ControlledChessBoard = () => {
                                 chess.move({
                                     from: promotion.from.toCoordinate(),
                                     to: promotion.to.toCoordinate(),
-                                    promotion: coloredPieceToFenPiece(piece).toLowerCase()
+                                    promotion: positionContentToFenPiece(piece).toLowerCase()
                                 });
                                 setPromotion(null);
                                 setFen(chess.fen());
@@ -61,8 +74,7 @@ export const ControlledChessBoard = () => {
 
                 return defaultRenderSquare(props);
             }}
-            rotated
-            draggable={promotion === null}
+            draggable
         />
     );
 };
