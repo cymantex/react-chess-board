@@ -5,7 +5,7 @@ react-fen-chess-board is as the name suggests a React chess board which is contr
 ``npm install react-fen-chess-board``
 
 ## Rendering a static chess board
-To render a static chess board you simply provide the FEN of the position you want.
+To render a static chess board you simply provide the FEN of the position you want to display.
 ````typescript jsx
 import React from "react";
 import {render} from "react-dom";
@@ -36,7 +36,7 @@ render(
 ![rotated board](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/rotated.PNG "Rotated ChessBoard")
 
 ### onMove
-A function which enables drag-and-drop and is called whenever the user drags and drops a piece. The following is an example of how this callback can be used alongside chess.js to almost enable a fully functional chess board.
+A function which enables drag-and-drop and is called whenever the user drags and drops a piece. The following is an example of how this callback can be used alongside [chess.js](https://github.com/jhlywa/chess.js) to almost enable a fully functional chess board.
 ````typescript jsx
 import React, {useState} from "react";
 import {ChessBoard} from "react-fen-chess-board";
@@ -64,7 +64,7 @@ const MyChessBoard = () => {
 export default MyChessBoard;
 ````
 
-Since react-fen-chess-board uses [react-dnd](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/piece-theme.PNG) behind the scenes your application to be wrapped in a [DndProvider](https://react-dnd.github.io/react-dnd/docs/api/dnd-provider) in order to use the drag-and-drop functionality. Out of the box react-fen-chess-board includes a ``ChessBoardDndProvider`` component you can use for this purpose. 
+Since react-fen-chess-board uses [react-dnd](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/piece-theme.PNG) behind the scenes your application needs to be wrapped in a [DndProvider](https://react-dnd.github.io/react-dnd/docs/api/dnd-provider) in order to use onMove. Out of the box react-fen-chess-board includes a ``ChessBoardDndProvider`` component you can use for this purpose. 
 ````typescript jsx
 import React from "react";
 import {render} from "react-dom";
@@ -130,7 +130,7 @@ render(
     document.getElementById("your-react-root")
 );
 ````
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "pieceTheme")
+![alt text](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/piece-theme.PNG "pieceTheme")
 
 ### Render props
 To allow for powerful customization for the appearance and behaviour of the ChessBoard there are different render functions which can be overwritten. This section will show the default implementation of the renderers which can be imported under ``react-fen-chess-board/utils/renderers``. You can find out more about the props by looking at the type definitions.
