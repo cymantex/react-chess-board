@@ -7,7 +7,7 @@ import {BoardRenderingProps} from "./renderers";
 
 export interface BoardRenderProps extends BoardRenderingProps {
     board: Board,
-    onMove: MoveHandler,
+    onMove?: MoveHandler,
     resizeListener: React.ReactNode,
 }
 
@@ -15,6 +15,7 @@ export const BoardRenderer: React.FC<BoardRenderProps> = ({
     board,
     resizeListener,
     children,
+    onMove,
     ...boardRenderingProps
 }) => {
     const {
@@ -38,24 +39,29 @@ export const BoardRenderer: React.FC<BoardRenderProps> = ({
                                         const position = Position.fromCoordinate(coordinate);
                                         const props = {board, position};
 
-                                        return renderSquare({
-                                            Coordinate: renderCoordinate(props),
-                                            Piece: renderPiece(props),
-                                            lightSquare: ((j - i) % 2) === 0,
-                                            key: coordinate,
-                                            ...props
-                                        });
+                                        return (
+                                            <Fragment key={coordinate}>
+                                                {renderSquare({
+                                                    Coordinate: renderCoordinate(props),
+                                                    Piece: renderPiece(props),
+                                                    lightSquare: ((j - i) % 2) === 0,
+                                                    ...props
+                                                })}
+                                            </Fragment>
+                                        );
                                     })}
                                 </Fragment>
                             );
                         })}
-                        <Preview
-                            generator={(props: PreviewGeneratorProps) => renderPreviewPiece({
-                                pieceDragObject: props.item,
-                                board,
-                                ...props
-                            })}
-                        />
+                        {onMove ? (
+                            <Preview
+                                generator={(props: PreviewGeneratorProps) => renderPreviewPiece({
+                                    pieceDragObject: props.item,
+                                    board,
+                                    ...props
+                                })}
+                            />
+                        ) : null}
                     </>
                 ),
                 style: {

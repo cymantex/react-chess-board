@@ -1,4 +1,4 @@
-import React, {ComponentProps} from "react";
+import React from "react";
 import {Fen} from "chess-fen";
 import {Board} from "./utils/Board";
 import {mergeBoardRenderers} from "./utils/renderers";
@@ -10,25 +10,24 @@ import {DraggablePiece} from "./dnd/DraggablePiece";
 import useResizeAware from "react-resize-aware";
 import {BoardRenderingProps} from "./utils/renderers";
 
-export interface ChessBoardProps extends ComponentProps<any>, Partial<BoardRenderingProps> {
+export interface ChessBoardProps extends React.HTMLAttributes<HTMLElement>, Partial<BoardRenderingProps> {
     fen?: string | Fen,
     onMove?: MoveHandler,
-    draggable?: boolean,
+    rotated?: boolean,
     pieceTheme?: PieceTheme,
     boardTheme?: BoardTheme
 }
 
 export const ChessBoard: React.FC<ChessBoardProps> = ({
     fen = Fen.startingPosition,
-    onMove = () => {},
+    onMove,
     rotated = false,
-    draggable = false,
     pieceTheme = {},
     boardTheme = {},
     ...props
 }) => {
     const [resizeListener, size] = useResizeAware();
-    const board = new Board({fen, size: size.width, pieceTheme, boardTheme});
+    const board = new Board({fen, size: size.width, pieceTheme, boardTheme, rotated});
 
     const {
         renderPiece,
@@ -57,7 +56,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
                 {...boardProps}
                 onMove={onMove}
                 renderSquare={(squareViewProps) => (
-                    draggable ? (
+                    onMove ? (
                         <DroppableSquare
                             renderSquare={renderSquare}
                             onPieceMove={onMove}
@@ -66,7 +65,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
                     ) : renderSquare(squareViewProps)
                 )}
                 renderPiece={(pieceViewProps) =>
-                    draggable ? (
+                    onMove ? (
                         <DraggablePiece
                             renderPiece={renderPiece}
                             {...pieceViewProps}

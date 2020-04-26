@@ -1,4 +1,4 @@
-import React, {ComponentProps} from "react";
+import React from "react";
 import {BoardView, BoardViewProps} from "../views/BoardView";
 import {SquareView, SquareViewProps} from "../views/SquareView";
 import {PieceView, PieceViewProps} from "../views/PieceView";
@@ -55,7 +55,7 @@ export const mergeBoardRenderers: (props: Partial<BoardRenderingProps>) => Requi
     renderPreviewPiece
 });
 
-export interface SquareRenderingProps extends ComponentProps<any> {
+export interface SquareRenderingProps extends React.HTMLAttributes<HTMLElement> {
     board: Board,
     position: Position
 }
