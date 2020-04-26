@@ -19,7 +19,7 @@ render(
     document.getElementById("your-react-root")
 );
 ````
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Static ChessBoard")
+![static board](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/static-board.PNG "Static ChessBoard")
 
 ## Props
 ### rotated
@@ -33,7 +33,7 @@ render(
     document.getElementById("your-react-root")
 );
 ````
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Rotated ChessBoard")
+![rotated board](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/rotated.PNG "Rotated ChessBoard")
 
 ### onMove
 A function which enables drag-and-drop and is called whenever the user drags and drops a piece. The following is an example of how this callback can be used alongside chess.js to almost enable a fully functional chess board.
@@ -64,7 +64,7 @@ const MyChessBoard = () => {
 export default MyChessBoard;
 ````
 
-Since react-fen-chess-board uses [react-dnd](https://react-dnd.github.io/react-dnd/about) behind the scenes your application to be wrapped in a [DndProvider](https://react-dnd.github.io/react-dnd/docs/api/dnd-provider) in order to use the drag-and-drop functionality. Out of the box react-fen-chess-board includes a ``ChessBoardDndProvider`` component you can use for this purpose. 
+Since react-fen-chess-board uses [react-dnd](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/piece-theme.PNG) behind the scenes your application to be wrapped in a [DndProvider](https://react-dnd.github.io/react-dnd/docs/api/dnd-provider) in order to use the drag-and-drop functionality. Out of the box react-fen-chess-board includes a ``ChessBoardDndProvider`` component you can use for this purpose. 
 ````typescript jsx
 import React from "react";
 import {render} from "react-dom";
@@ -97,7 +97,7 @@ render(
     document.getElementById("your-react-root")
 );
 ````
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "boardTheme")
+![boardTheme](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/board-theme.PNG "boardTheme")
 
 #### pieceTheme
 ````javascript
