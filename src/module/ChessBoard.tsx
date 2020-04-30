@@ -1,14 +1,11 @@
 import React from "react";
 import {Fen} from "chess-fen";
 import {Board} from "./utils/Board";
-import {mergeBoardRenderers} from "./utils/renderers";
+import {BoardRenderingProps, mergeBoardRenderers} from "./utils/renderers";
 import {ChessBoardStyles} from "./styles";
 import {BoardTheme, MoveHandler, PieceTheme} from "./types";
 import BoardRenderer from "./utils/BoardRenderer";
-import {DroppableSquare} from "./dnd/DroppableSquare";
-import {DraggablePiece} from "./dnd/DraggablePiece";
 import useResizeAware from "react-resize-aware";
-import {BoardRenderingProps} from "./utils/renderers";
 
 export interface ChessBoardProps extends React.HTMLAttributes<HTMLElement>, Partial<BoardRenderingProps> {
     fen?: string | Fen,
@@ -34,14 +31,18 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
         renderSquare,
         renderPreviewPiece,
         renderCoordinate,
-        renderBoard
+        renderBoard,
+        renderDroppableSquare,
+        renderDraggablePiece
     } = mergeBoardRenderers(props);
 
     const boardProps = {
         board,
-        onPieceMove: onMove,
+        onMove,
         resizeListener,
         ...props,
+        renderDroppableSquare,
+        renderDraggablePiece,
         renderPiece,
         renderSquare,
         renderPreviewPiece,
@@ -52,27 +53,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
     return (
         <>
             <ChessBoardStyles/>
-            <BoardRenderer
-                {...boardProps}
-                onMove={onMove}
-                renderSquare={(squareViewProps) => (
-                    onMove ? (
-                        <DroppableSquare
-                            renderSquare={renderSquare}
-                            onPieceMove={onMove}
-                            {...squareViewProps}
-                        />
-                    ) : renderSquare(squareViewProps)
-                )}
-                renderPiece={(pieceViewProps) =>
-                    onMove ? (
-                        <DraggablePiece
-                            renderPiece={renderPiece}
-                            {...pieceViewProps}
-                        />
-                    ) : renderPiece(pieceViewProps)
-                }
-            />
+            <BoardRenderer {...boardProps}/>
         </>
     );
 };

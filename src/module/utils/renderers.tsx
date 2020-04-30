@@ -7,6 +7,8 @@ import {PreviewPieceView, PreviewPieceViewProps} from "../views/PreviewPieceView
 import {Board} from "./Board";
 import {Position} from "chess-fen";
 import {BoardContent} from "chess-fen/types";
+import DroppableSquare, {DroppableSquareProps} from "../dnd/DroppableSquare";
+import DraggablePiece, {DraggablePieceProps} from "../dnd/DraggablePiece";
 
 export type BoardRenderer = (props: RenderBoardViewProps) => React.ReactNode;
 export const defaultRenderBoard: BoardRenderer = ({children, resizeListener, ...props}) => (
@@ -33,12 +35,20 @@ export const defaultRenderCoordinate: CoordinateRenderer = (props) => <Coordinat
 export type PreviewPieceRenderer = (props: PreviewPieceViewProps) => React.ReactNode;
 export const defaultRenderPreviewPiece: PreviewPieceRenderer = (props) => <PreviewPieceView {...props}/>;
 
+export type DroppableSquareRenderer = (props: DroppableSquareProps) => React.ReactNode;
+export const defaultRenderDroppableSquare: DroppableSquareRenderer = (props) => <DroppableSquare {...props}/>;
+
+export type DraggablePieceRenderer = (props: DraggablePieceProps) => React.ReactNode;
+export const defaultRenderDraggablePiece: DraggablePieceRenderer = (props) => <DraggablePiece {...props}/>;
+
 export interface BoardRenderingProps {
     renderSquare: SquareRenderer,
     renderBoard: BoardRenderer,
     renderPiece: PieceRenderer,
     renderCoordinate: CoordinateRenderer,
-    renderPreviewPiece: PreviewPieceRenderer
+    renderPreviewPiece: PreviewPieceRenderer,
+    renderDroppableSquare: DroppableSquareRenderer,
+    renderDraggablePiece: DraggablePieceRenderer
 }
 
 export const mergeBoardRenderers: (props: Partial<BoardRenderingProps>) => Required<BoardRenderingProps> = ({
@@ -46,13 +56,17 @@ export const mergeBoardRenderers: (props: Partial<BoardRenderingProps>) => Requi
     renderSquare = defaultRenderSquare,
     renderPiece = defaultRenderPiece,
     renderCoordinate = defaultRenderCoordinate,
-    renderPreviewPiece = defaultRenderPreviewPiece
+    renderPreviewPiece = defaultRenderPreviewPiece,
+    renderDroppableSquare = defaultRenderDroppableSquare,
+    renderDraggablePiece = defaultRenderDraggablePiece
 }) => ({
     renderBoard,
     renderSquare,
     renderPiece,
     renderCoordinate,
-    renderPreviewPiece
+    renderPreviewPiece,
+    renderDraggablePiece,
+    renderDroppableSquare
 });
 
 export interface SquareRenderingProps extends React.HTMLAttributes<HTMLElement> {

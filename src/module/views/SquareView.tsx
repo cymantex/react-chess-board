@@ -6,7 +6,9 @@ import {SquareRenderingProps} from "../utils/renderers";
 export interface SquareViewProps extends SquareRenderingProps {
     lightSquare: boolean,
     highlighted?: boolean,
-    dropTarget?: ConnectDropTarget
+    dropTarget?: ConnectDropTarget,
+    isOver?: boolean,
+    canDrop?: boolean
 }
 
 export const SquareView: React.FC<SquareViewProps> = ({
@@ -17,6 +19,8 @@ export const SquareView: React.FC<SquareViewProps> = ({
     dropTarget,
     style = {},
     className,
+    isOver,
+    canDrop,
     ...props
 }) => {
     const piece = board.get(position);

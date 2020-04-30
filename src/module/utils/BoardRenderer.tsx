@@ -23,7 +23,9 @@ export const BoardRenderer: React.FC<BoardRenderProps> = ({
         renderSquare,
         renderBoard,
         renderCoordinate,
-        renderPreviewPiece
+        renderPreviewPiece,
+        renderDroppableSquare,
+        renderDraggablePiece,
     } = boardRenderingProps;
 
     return (
@@ -41,12 +43,22 @@ export const BoardRenderer: React.FC<BoardRenderProps> = ({
 
                                         return (
                                             <Fragment key={coordinate}>
-                                                {renderSquare({
-                                                    Coordinate: renderCoordinate(props),
-                                                    Piece: renderPiece(props),
-                                                    lightSquare: ((j - i) % 2) === 0,
-                                                    ...props
-                                                })}
+                                                {onMove
+                                                    ? renderDroppableSquare({
+                                                        onPieceMove: onMove,
+                                                        renderSquare,
+                                                        lightSquare: ((j - i) % 2) === 0,
+                                                        Coordinate: renderCoordinate(props),
+                                                        Piece: renderDraggablePiece({renderPiece, ...props}),
+                                                        ...props
+                                                    })
+                                                    : renderSquare({
+                                                        Coordinate: renderCoordinate(props),
+                                                        Piece: renderPiece(props),
+                                                        lightSquare: ((j - i) % 2) === 0,
+                                                        ...props
+                                                    })
+                                                }
                                             </Fragment>
                                         );
                                     })}

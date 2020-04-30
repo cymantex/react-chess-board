@@ -9,9 +9,9 @@ export interface DroppableSquareProps extends RenderSquareViewProps {
 }
 
 export const DroppableSquare: React.FC<DroppableSquareProps> = ({onPieceMove, renderSquare, ...props}) => {
-    const [, dropTarget] = usePieceDrop(onPieceMove, props.position, props.board);
+    const [dropProps, dropTarget] = usePieceDrop(onPieceMove, props.position, props.board);
 
-    return <>{renderSquare({dropTarget, ...props})}</>;
+    return <>{renderSquare({dropTarget, ...dropProps, ...props})}</>;
 };
 
 export default DroppableSquare;

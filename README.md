@@ -22,7 +22,7 @@ render(
 ![static board](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/static-board.PNG "Static ChessBoard")
 
 ## Props
-### rotated
+### rotated (default: false)
 Controls if the board should be rotated or not.
 ````typescript jsx
 render(
@@ -35,7 +35,7 @@ render(
 ````
 ![rotated board](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/rotated.PNG "Rotated ChessBoard")
 
-### onMove
+### onMove (default: undefined)
 A function which enables drag-and-drop and is called whenever the user drags and drops a piece. The following is an example of how this callback can be used alongside [chess.js](https://github.com/jhlywa/chess.js) to almost enable a fully functional chess board.
 ````typescript jsx
 import React, {useState} from "react";
@@ -64,7 +64,7 @@ const MyChessBoard = () => {
 export default MyChessBoard;
 ````
 
-Since react-fen-chess-board uses [react-dnd](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/piece-theme.PNG) behind the scenes your application needs to be wrapped in a [DndProvider](https://react-dnd.github.io/react-dnd/docs/api/dnd-provider) in order to use onMove. Out of the box react-fen-chess-board includes a ``ChessBoardDndProvider`` component you can use for this purpose. 
+Since react-fen-chess-board uses [react-dnd](https://react-dnd.github.io/react-dnd/about) behind the scenes your application needs to be wrapped in a [DndProvider](https://react-dnd.github.io/react-dnd/docs/api/dnd-provider) in order to use onMove. Out of the box react-fen-chess-board includes a ``ChessBoardDndProvider`` component you can use for this purpose. 
 ````typescript jsx
 import React from "react";
 import {render} from "react-dom";
@@ -84,15 +84,15 @@ Besides the ability to pass render props or using CSS there is also an option to
 
 #### boardTheme
 ````javascript
-const blueBoardTheme = {
-    darkSquare: "#708B9C",
-    lightSquare: "#95AEC2"
+export const brownBoardTheme = {
+    darkSquare: "#b58863",
+    lightSquare: "#f0d9b5"
 };
 
 render(
     <ChessBoard 
         fen="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-        boardTheme={blueBoardTheme}
+        boardTheme={brownBoardTheme}
     />,
     document.getElementById("your-react-root")
 );
@@ -133,72 +133,26 @@ render(
 ![alt text](https://raw.githubusercontent.com/dv16sen/react-chess-board/master/assets/piece-theme.PNG "pieceTheme")
 
 ### Render props
-To allow for powerful customization for the appearance and behaviour of the ChessBoard there are different render functions which can be overwritten. This section will show the default implementation of the renderers which can be imported under ``react-fen-chess-board/utils/renderers``. You can find out more about the props by looking at the type definitions.
+To allow for powerful customization for the appearance and behaviour of the ChessBoard there are different render functions which can be overwritten.
 
 #### renderBoard
-Determines how the board wrapper is rendered.
-````typescript jsx
-import {BoardView, BoardViewProps} from "react-fen-chess-board/views/BoardView";
-
-export interface RenderBoardViewProps extends BoardViewProps {
-    resizeListener: React.ReactNode
-}
-
-export type BoardRenderer = (props: RenderBoardViewProps) => React.ReactNode;
-
-// resizeListener is from react-resize-aware (https://www.npmjs.com/package/react-resize-aware) 
-// and allows for resizing the ChessBoard as the browser window shrinks. 
-export const defaultRenderBoard: BoardRenderer = ({children, resizeListener, ...props}) => (
-    <BoardView {...props}>
-        {resizeListener}
-        {children}
-    </BoardView>
-);
-````
+Determines how the board wrapper is rendered and notably also attaches the resizeListener from [react-resize-aware](https://www.npmjs.com/package/react-resize-aware).
 
 #### renderSquare
-Determines how the squares are rendered.
-````typescript jsx
-import {SquareView, SquareViewProps} from "react-fen-chess-board/views/SquareView";
-
-export interface RenderSquareViewProps extends SquareViewProps {
-    Piece: React.ReactNode
-    Coordinate: React.ReactNode
-}
-
-export type SquareRenderer = (props: RenderSquareViewProps) => React.ReactNode;
-
-export const defaultRenderSquare: SquareRenderer = ({Coordinate, Piece, ...props}) => (
-    <SquareView {...props}>
-        {Piece}
-        {Coordinate}
-    </SquareView>
-);
-````
+Determines how the squares are rendered based on the ``boardTheme``. This function will be called once for each square on the board, starting with a8 and ending on h1. The result of ``renderPiece`` and ``renderCoordinate`` is passed as parameters.
 
 #### renderPiece
-Determines how the pieces are rendered.
-````typescript jsx
-import {PieceView, PieceViewProps} from "react-fen-chess-board/views/PieceView";
-
-export type PieceRenderer = (props: PieceViewProps) => React.ReactNode;
-export const defaultRenderPiece: PieceRenderer = (props) => <PieceView {...props}/>;
-````
+Determines how the pieces are rendered using the defined ``pieceTheme``.
 
 #### renderCoordinate
 Determines how the coordinates are rendered.
-````typescript jsx
-import {CoordinateView, CoordinateViewProps} from "react-fen-chess-board/views/CoordinateView";
-
-export type CoordinateRenderer = (props: CoordinateViewProps) => React.ReactNode;
-export const defaultRenderCoordinate: CoordinateRenderer = (props) => <CoordinateView {...props}/>;
-````
 
 #### renderPreviewPiece
 Determines how a piece currently being dragged is rendered.
-````typescript jsx
-import {PreviewPieceView, PreviewPieceViewProps} from "react-fen-chess-board/views/PreviewPieceView";
 
-export type PreviewPieceRenderer = (props: PreviewPieceViewProps) => React.ReactNode;
-export const defaultRenderPreviewPiece = (props) => <PreviewPieceView {...props}/>;
-````
+#### renderDroppableSquare
+Determines how the drop-target wrapper around a Square should be rendered. This function is only called if ``onMove`` is defined. The result of ``renderDraggablePiece`` is passed as a parameter.
+
+#### renderDraggablePiece
+Determines how the drag-source wrapper around a Piece should be rendered. This function is only called if ``onMove`` is defined.
+
