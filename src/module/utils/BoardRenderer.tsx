@@ -2,14 +2,14 @@ import { Fragment, ReactNode } from "react";
 import { Board } from "./Board";
 import { Preview } from "react-dnd-preview";
 import { MoveHandler, PreviewGeneratorProps } from "../types";
-import { BoardRenderingProps, PreviewPieceRenderer } from "./renderers";
+import { BoardRenderingProps, PreviewPieceRendererFunc } from "./renderers";
 import { SquareRenderer } from "./SquareRenderer";
 
 export interface BoardRendererProps extends BoardRenderingProps {
   board: Board;
   onMove?: MoveHandler;
   resizeListener: ReactNode;
-  renderPreviewPiece: PreviewPieceRenderer;
+  renderPreviewPiece: PreviewPieceRendererFunc;
 }
 
 export const BoardRenderer = ({

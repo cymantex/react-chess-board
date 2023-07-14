@@ -1,9 +1,9 @@
 import { usePieceDrop } from "./usePieceDrop";
 import { MoveHandler } from "../types";
-import { RenderSquareViewProps, SquareRenderer } from "../utils/renderers";
+import { RenderSquareViewProps, SquareRendererFunc } from "../utils/renderers";
 
 export interface DroppableSquareProps extends RenderSquareViewProps {
-  renderSquare: SquareRenderer;
+  renderSquare: SquareRendererFunc;
   onPieceMove: MoveHandler;
 }
 

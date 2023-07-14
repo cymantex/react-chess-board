@@ -16,3 +16,5 @@ export function ChessBoardDndProvider({
 }: ChessBoardDndProviderProps) {
   return <DndProvider {...dndProviderProps}>{children}</DndProvider>;
 }
+
+export default ChessBoardDndProvider;

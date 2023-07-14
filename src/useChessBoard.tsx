@@ -1,9 +1,7 @@
 import { Chess } from "chess.js";
-import { ChessBoardProps } from "./module/ChessBoard";
 import { useState } from "react";
-import { PromotionView } from "./module";
-import { defaultRenderSquare } from "./module/utils/renderers";
 import { Position } from "chess-fen";
+import { ChessBoardProps, PromotionView, defaultRenderSquare } from "react-fen-chess-board";
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error) return error.message;
@@ -28,13 +26,14 @@ export const useChessBoard = (
 
       if (board.isPromotion(fromPosition, toPosition)) {
         setPromotion({ from: fromPosition, to: toPosition });
-      } else {
-        try {
-          chess.move({ from: fromPosition.toCoordinate(), to: toPosition.toCoordinate() });
-          setFen(chess.fen());
-        } catch (error) {
-          console.warn(getErrorMessage(error));
-        }
+        return;
+      }
+
+      try {
+        chess.move({ from: fromPosition.toCoordinate(), to: toPosition.toCoordinate() });
+        setFen(chess.fen());
+      } catch (error) {
+        console.warn(getErrorMessage(error));
       }
     },
     renderSquare: (props) => {

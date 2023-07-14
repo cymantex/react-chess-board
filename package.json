@@ -1,6 +1,6 @@
 {
   "name": "react-fen-chess-board",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "private": false,
   "author": "Simon Eriksson <sim.eriksson@outlook.com>",
   "license": "MIT",
@@ -38,6 +38,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-preview": "^8.0.1",
     "react-dnd-touch-backend": "^16.0.1",
+    "react-fen-chess-board": "^2.0.1",
     "styled-components": "^5.3.11"
   },
   "scripts": {

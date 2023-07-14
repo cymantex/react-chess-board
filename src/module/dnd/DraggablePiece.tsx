@@ -1,9 +1,9 @@
 import { PieceViewProps } from "../views/PieceView";
 import { usePieceDrag } from "./usePieceDrag";
-import { PieceRenderer } from "../utils/renderers";
+import { PieceRendererFunc } from "../utils/renderers";
 
 export interface DraggablePieceProps extends PieceViewProps {
-  renderPiece: PieceRenderer;
+  renderPiece: PieceRendererFunc;
 }
 
 export const DraggablePiece = ({ renderPiece, ...props }: DraggablePieceProps) => {
