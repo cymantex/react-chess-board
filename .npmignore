@@ -1,0 +1,15 @@
+.github
+.idea
+assets
+public
+src
+.babelrc
+.eslintrc.cjs
+.gitignore
+.prettierignore
+.prettierrc.json
+index.html
+package-lock.json
+tsbuild.json
+tsconfig.node.json
+vite.config.ts

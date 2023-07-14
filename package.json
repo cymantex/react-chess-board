@@ -46,8 +46,8 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "build": "./scripts/build.sh",
-    "release": "./scripts/release.sh",
+    "build": "tsc --build tsbuild.json",
+    "release": "npm publish",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "test:coverage": "cross-env CI=true react-scripts test --env=jsdom --coverage"
   }
