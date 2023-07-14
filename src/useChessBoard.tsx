@@ -1,7 +1,7 @@
 import { Chess } from "chess.js";
 import { useState } from "react";
 import { Position } from "chess-fen";
-import { ChessBoardProps, PromotionView, defaultRenderSquare } from "react-fen-chess-board";
+import { ChessBoardProps, defaultRenderSquare, PromotionView } from "react-fen-chess-board";
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error) return error.message;

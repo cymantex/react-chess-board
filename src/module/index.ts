@@ -38,7 +38,7 @@ export {
   defaultRenderDraggablePiece,
   defaultRenderDroppableSquare,
   defaultRenderPreviewPiece,
-  mergeBoardRenderers
+  mergeBoardRenderers,
 } from "./utils/renderers";
 export type {
   BoardRendererFunc,
@@ -53,7 +53,7 @@ export type {
   RenderBoardViewProps,
   RenderSquareViewProps,
   RenderPromotionViewProps,
-  PromotionPieceProps
+  PromotionPieceProps,
 } from "./utils/renderers";
 
 export type {
@@ -65,7 +65,7 @@ export type {
   PieceDropProps,
   PreviewGeneratorProps,
   Coordinates,
-  MoveProps
+  MoveProps,
 } from "./types";
 
 export { blue } from "./themes/boards/blue";
@@ -77,7 +77,9 @@ export { merida } from "./themes/pieces/merida";
 export { useResizeAware } from "./external/react-resize-aware/useResizeAware";
 export { ResizeListener } from "./external/react-resize-aware/ResizeListener";
 export type {
-  ResizeAware, ResizeSize, ResizeReporter
+  ResizeAware,
+  ResizeSize,
+  ResizeReporter,
 } from "./external/react-resize-aware/useResizeAware";
 
 export { default as ChessBoardStyles } from "./styles";

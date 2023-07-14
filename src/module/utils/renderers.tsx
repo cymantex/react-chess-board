@@ -40,7 +40,9 @@ export const defaultRenderSquare: SquareRendererFunc = ({ Coordinate, Piece, ...
   </SquareView>
 );
 export const defaultRenderPiece: PieceRendererFunc = (props) => <PieceView {...props} />;
-export const defaultRenderCoordinate: CoordinateRendererFunc = (props) => <CoordinateView {...props} />;
+export const defaultRenderCoordinate: CoordinateRendererFunc = (props) => (
+  <CoordinateView {...props} />
+);
 export const defaultRenderPreviewPiece: PreviewPieceRendererFunc = (props) => (
   <PreviewPieceView {...props} />
 );

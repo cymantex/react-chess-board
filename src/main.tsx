@@ -1,6 +1,5 @@
 import { render } from "react-dom";
-import { ChessBoard } from "./module/ChessBoard";
-import { ChessBoardDndProvider } from "./module/dnd/ChessBoardDndProvider";
+import { ChessBoard, ChessBoardDndProvider } from "react-fen-chess-board";
 import { Chess } from "chess.js";
 import { useChessBoard } from "./useChessBoard";
 
