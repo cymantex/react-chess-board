@@ -11,5 +11,6 @@ src
 index.html
 package-lock.json
 tsbuild.json
+tsconfig.json
 tsconfig.node.json
 vite.config.ts
