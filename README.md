@@ -49,36 +49,12 @@ render(
 ### onMove (default: undefined)
 
 A function which enables drag-and-drop and is called whenever the user drags and drops a piece. The
-following is an example of how this callback can be used
-alongside [chess.js](https://github.com/jhlywa/chess.js) to almost enable a fully functional chess
-board.
-
-````typescript jsx
-import React, { useState } from "react";
-import { ChessBoard } from "react-fen-chess-board";
-import Chess from "chess.js";
-
-const chess = new Chess();
-
-const MyChessBoard = () => {
-  const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-
-  return (
-    <ChessBoard
-      fen={fen}
-      onMove={({ fromPosition, toPosition, board }) => {
-        chess.move({
-          from: fromPosition.toCoordinate(),
-          to: toPosition.toCoordinate()
-        });
-        setFen(chess.fen());
-      }}
-    />
-  );
-};
-
-export default MyChessBoard;
-````
+[demo](https://cymantex.github.io/react-chess-board/) uses this prop
+alongside [chess.js](https://github.com/jhlywa/chess.js/tree/master) to create
+a [useChessBoard](https://github.com/cymantex/react-chess-board/blob/main/src/useChessBoard.tsx)
+hook that enables a fully functional chess board.
+See [main.tsx](https://github.com/cymantex/react-chess-board/blob/main/src/main.tsx) for an example
+of how to use it.
 
 Since react-fen-chess-board uses [react-dnd](https://react-dnd.github.io/react-dnd/about) behind the
 scenes your application needs to be wrapped in
