@@ -8,7 +8,7 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "include": [
     "src/module"
