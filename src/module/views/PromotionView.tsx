@@ -1,47 +1,45 @@
-import React from "react";
-import {SquareView} from "./SquareView";
-import {RenderPromotionViewProps} from "../utils/renderers";
-import {BoardContent, Piece as Pieces} from "chess-fen/types";
+import { SquareView } from "./SquareView";
+import { RenderPromotionViewProps } from "../utils/renderers";
+import { Color, Piece, PIECES } from "chess-fen";
+import { PromotionPieceView } from "./PromotionPieceView";
 
-export const PromotionView: React.FC<RenderPromotionViewProps> = ({
-    Coordinate,
-    Piece,
-    onPromotion,
-    onClose,
-    style = {},
-    ...props
-}) => {
-    const {board} = props;
+const getPromotionPieces = (toMove: Color): Piece[] =>
+  toMove === "white"
+    ? [PIECES.Q, PIECES.R, PIECES.B, PIECES.N]
+    : [PIECES.q, PIECES.r, PIECES.b, PIECES.n];
 
-    const PromotionPiece: React.FC<{piece: Pieces}> = ({piece}) => (
-        <div className="chess-board-promotion--piece"
-             onClick={() => onPromotion(`${board.toMove} ${piece}` as BoardContent)}>
-            {board.pieceTheme[`${board.toMove} ${piece}`](props)}
+export const PromotionView = ({
+  Coordinate,
+  Piece,
+  onPromotion,
+  onClose,
+  style = {},
+  ...props
+}: RenderPromotionViewProps) => {
+  const { board } = props;
+
+  return (
+    <SquareView {...props}>
+      <div
+        style={{
+          transform:
+            (!board.rotated && board.toMove === "black") ||
+            (board.rotated && board.toMove === "white")
+              ? "translate(0, calc(-75% - 15px))"
+              : "none",
+          ...style,
+        }}
+        className="chess-board-promotion"
+      >
+        {getPromotionPieces(board.toMove).map((piece) => (
+          <PromotionPieceView key={piece} piece={piece} onPromotion={onPromotion} {...props} />
+        ))}
+        <div className="chess-board-promotion--close" onClick={onClose}>
+          close
         </div>
-    );
-
-    return (
-        <SquareView {...props}>
-            <div
-                style={{
-                    transform: (
-                        ((!board.rotated && board.toMove === "black") || (board.rotated && board.toMove === "white"))
-                            ? "translate(0, calc(-75% - 15px))" : "none"
-                    ),
-                    ...style
-                }}
-                className="chess-board-promotion"
-            >
-                <PromotionPiece piece={Pieces.Queen}/>
-                <PromotionPiece piece={Pieces.Rook}/>
-                <PromotionPiece piece={Pieces.Bishop}/>
-                <PromotionPiece piece={Pieces.Knight}/>
-                <div className="chess-board-promotion--close" onClick={onClose}>
-                    close
-                </div>
-            </div>
-        </SquareView>
-    );
+      </div>
+    </SquareView>
+  );
 };
 
 export default PromotionView;

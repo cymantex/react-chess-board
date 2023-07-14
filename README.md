@@ -107,19 +107,19 @@ import {
 } from "./merida";
 
 const meridaPieceTheme = {
-    "black pawn": ({board, position, dragSource}) => <BlackPawn/>,
-    "black knight": () => <BlackKnight/>,
-    "black bishop": () => <BlackBishop/>,
-    "black queen": () => <BlackQueen/>,
-    "black rook": () => <BlackRook/>,
-    "black king": () => <BlackKing/>,
-    "white pawn": () => <WhitePawn/>,
-    "white knight": () => <WhiteKnight/>,
-    "white bishop": () => <WhiteBishop/>,
-    "white queen": () => <WhiteQueen/>,
-    "white rook": () => <WhiteRook/>,
-    "white king": () => <WhiteKing/>,
-    "empty": () => <div/>
+    "p": ({board, position, dragSource}) => <BlackPawn/>,
+    "n": () => <BlackKnight/>,
+    "b": () => <BlackBishop/>,
+    "q": () => <BlackQueen/>,
+    "r": () => <BlackRook/>,
+    "k": () => <BlackKing/>,
+    "P": () => <WhitePawn/>,
+    "N": () => <WhiteKnight/>,
+    "B": () => <WhiteBishop/>,
+    "Q": () => <WhiteQueen/>,
+    "R": () => <WhiteRook/>,
+    "K": () => <WhiteKing/>,
+    " ": () => <div/>
 };
 
 render(

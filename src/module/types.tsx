@@ -1,49 +1,47 @@
-import {Position} from "chess-fen";
-import {Board} from "./utils/Board";
-import {PieceViewProps} from "./views/PieceView";
-import React, {ComponentProps, CSSProperties} from "react";
-import {DragObjectWithType} from "react-dnd";
-import {BoardContent} from "chess-fen/types";
+import { BoardContent, Position } from "chess-fen";
+import { Board } from "./utils/Board";
+import { PieceViewProps } from "./views/PieceView";
+import { ComponentProps, CSSProperties, ReactNode } from "react";
 
-export interface PieceTheme {
-    [content: string]: (props: Partial<PieceViewProps>) => React.ReactNode
-}
+export type PieceTheme = {
+  [content in BoardContent]: (props: Partial<PieceViewProps>) => ReactNode;
+};
 
 export interface BoardTheme {
-    lightSquare?: string,
-    darkSquare?: string
+  lightSquare?: string;
+  darkSquare?: string;
 }
 
 export interface MoveProps {
-    fromPosition: Position,
-    toPosition: Position,
-    board: Board
+  fromPosition: Position;
+  toPosition: Position;
+  board: Board;
 }
 
 export interface Coordinates {
-    x: string[],
-    y: string[]
+  x: string[];
+  y: string[];
 }
 
 export type MoveHandler = (props: MoveProps) => void;
 
-
 // react-dnd related types
-export interface PieceDragObject extends DragObjectWithType {
-    position: Position
+export interface PieceDragObject {
+  position: Position;
+  type: BoardContent;
 }
 
 export interface PieceDragProps {
-    isDragging: boolean
+  isDragging: boolean;
 }
 
 export interface PieceDropProps {
-    isOver: boolean,
-    canDrop: boolean
+  isOver: boolean;
+  canDrop: boolean;
 }
 
 export interface PreviewGeneratorProps extends ComponentProps<any> {
-    itemType: BoardContent,
-    item: PieceDragObject,
-    style: CSSProperties
+  itemType: BoardContent;
+  item: PieceDragObject;
+  style: CSSProperties;
 }

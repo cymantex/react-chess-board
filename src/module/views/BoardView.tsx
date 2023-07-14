@@ -1,11 +1,11 @@
-import React from "react";
+import { HTMLAttributes } from "react";
 
-export interface BoardViewProps extends React.HTMLAttributes<HTMLElement> {}
+export interface BoardViewProps extends HTMLAttributes<HTMLElement> {}
 
-export const BoardView: React.FC<BoardViewProps> = ({children, ...props}) => (
-    <div className="chess-board" {...props}>
-        {children}
-    </div>
+export const BoardView = ({ children, ...props }: BoardViewProps) => (
+  <div className="chess-board" {...props}>
+    {children}
+  </div>
 );
 
 export default BoardView;

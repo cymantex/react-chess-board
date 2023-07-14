@@ -1,20 +1,18 @@
-import React from "react";
-import {DndProvider, DndProviderProps} from "react-dnd";
-import TouchBackend from "react-dnd-touch-backend";
+import { DndProvider, DndProviderProps } from "react-dnd";
+import { TouchBackend, TouchBackendContext, TouchBackendOptions } from "react-dnd-touch-backend";
+import { ReactNode } from "react";
 
 export interface ChessBoardDndProviderProps {
-    dndProviderProps?: DndProviderProps<any, any>
+  dndProviderProps?: DndProviderProps<TouchBackendContext, Partial<TouchBackendOptions>>;
+  children: ReactNode;
 }
 
-export const ChessBoardDndProvider: React.FC<ChessBoardDndProviderProps> = ({children, dndProviderProps}) => {
-    const dndProps = dndProviderProps ? dndProviderProps : {
-        backend: TouchBackend,
-        options: {enableMouseEvents: true},
-    };
-
-    return (
-        <DndProvider {...dndProps}>
-            {children}
-        </DndProvider>
-    );
-};
+export function ChessBoardDndProvider({
+  children,
+  dndProviderProps = {
+    backend: TouchBackend,
+    options: { enableMouseEvents: true },
+  },
+}: ChessBoardDndProviderProps) {
+  return <DndProvider {...dndProviderProps}>{children}</DndProvider>;
+}
