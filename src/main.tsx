@@ -8,7 +8,7 @@ export const ControlledChessBoard = ({ chess }: { chess: Chess }) => (
 );
 
 render(
-  <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+  <div style={{ maxWidth: "700px", margin: "0 auto" }}>
     <ChessBoardDndProvider>
       <ControlledChessBoard chess={new Chess()} />
     </ChessBoardDndProvider>
