@@ -38,7 +38,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-preview": "^8.0.1",
     "react-dnd-touch-backend": "^16.0.1",
-    "react-fen-chess-board": "^2.0.1",
+    "react-fen-chess-board": "^2.0.4",
     "styled-components": "^5.3.11"
   },
   "scripts": {
