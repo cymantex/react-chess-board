@@ -52,18 +52,17 @@ export const BoardRenderer = ({
                 </Fragment>
               );
             })}
-            {onMove ? (
+            {onMove && (
               <Preview
-                // @ts-ignore Typed as needing an Element even though a ReactNode is okay
                 generator={(props: PreviewGeneratorProps) =>
                   renderPreviewPiece({
                     pieceDragObject: props.item,
+                    style: props.style,
                     board,
-                    ...props,
                   })
                 }
               />
-            ) : null}
+            )}
           </>
         ),
         style: {

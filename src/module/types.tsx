@@ -41,7 +41,6 @@ export interface PieceDropProps {
 }
 
 export interface PreviewGeneratorProps extends ComponentProps<any> {
-  itemType: BoardContent;
   item: PieceDragObject;
   style: CSSProperties;
 }

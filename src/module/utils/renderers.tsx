@@ -7,13 +7,13 @@ import { Board } from "./Board";
 import { Position, BoardContent, Piece } from "chess-fen";
 import DroppableSquare, { DroppableSquareProps } from "../dnd/DroppableSquare";
 import DraggablePiece, { DraggablePieceProps } from "../dnd/DraggablePiece";
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactElement, ReactNode } from "react";
 
 export type BoardRendererFunc = (props: RenderBoardViewProps) => ReactNode;
 export type SquareRendererFunc = (props: RenderSquareViewProps) => ReactNode;
 export type PieceRendererFunc = (props: PieceViewProps) => ReactNode;
 export type CoordinateRendererFunc = (props: CoordinateViewProps) => ReactNode;
-export type PreviewPieceRendererFunc = (props: PreviewPieceViewProps) => ReactNode;
+export type PreviewPieceRendererFunc = (props: PreviewPieceViewProps) => ReactElement;
 export type DroppableSquareRendererFunc = (props: DroppableSquareProps) => ReactNode;
 export type DraggablePieceRendererFunc = (props: DraggablePieceProps) => ReactNode;
 

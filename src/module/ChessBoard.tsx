@@ -28,28 +28,12 @@ export const ChessBoard = ({
   const [resizeListener, size] = useResizeAware();
   const board = new Board({ fen, size: size.width || 0, pieceTheme, boardTheme, rotated });
 
-  const {
-    renderPiece,
-    renderSquare,
-    renderPreviewPiece,
-    renderCoordinate,
-    renderBoard,
-    renderDroppableSquare,
-    renderDraggablePiece,
-  } = mergeBoardRenderers(props);
-
   const boardProps = {
     board,
     onMove,
     resizeListener,
     ...props,
-    renderPiece,
-    renderSquare,
-    renderPreviewPiece,
-    renderCoordinate,
-    renderBoard,
-    renderDroppableSquare,
-    renderDraggablePiece,
+    ...mergeBoardRenderers(props),
   };
 
   return (

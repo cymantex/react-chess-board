@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "module": "esnext",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "useDefineForClassFields": true,
     "skipLibCheck": true,
-    "module": "esnext",
-    "downlevelIteration": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",

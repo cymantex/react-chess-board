@@ -5,13 +5,14 @@ import { PieceDragObject, PieceDragProps } from "../types";
 export const usePieceDrag = (
   props: PieceViewProps
 ): [PieceDragProps, ConnectDragSource, ConnectDragPreview] => {
+  const type = props.board.get(props.position);
   return useDrag<PieceDragObject, ConnectDragSource, PieceDragProps>({
     item: {
-      type: props.board.get(props.position),
+      type,
       position: props.position,
     },
     collect: (monitor) => ({ isDragging: monitor.isDragging() }),
-    type: props.board.get(props.position).toString(),
+    type,
   });
 };
 
